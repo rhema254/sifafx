@@ -6,7 +6,7 @@ from exts import db
 class services(db.Enum):
     CustomStrategyDevelopment = "Custom Strategy Development"
     AlgorithmicTrading = "Algorithmic Trading"
-    Multi-PlatformIntegration = "Multi-Platform Integration"
+    MultiPlatformIntegration = "Multi-Platform Integration"
     RiskManagementSolutions = "Risk Management Solutions"
     StrategyOptimization = "Strategy Optimization"
     PerformanceAnalytics = "Performance Analytics" 
