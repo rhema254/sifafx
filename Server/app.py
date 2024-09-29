@@ -3,7 +3,7 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 from datetime import datetime, timedelta
-from config import DevConfig
+from Server.config import DevConfig
 from decouple import config
 from flask_restx import Api, Resource, fields
 from flask_cors import CORS
