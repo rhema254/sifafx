@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 from Server.config import DevConfig
 from decouple import config
 from flask_restx import Api, Resource, fields
-from flask_cors import CORS
 from models import *
+from flask_cors import CORS
 
 app = Flask(__name__)
 
