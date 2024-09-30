@@ -77,9 +77,9 @@ class bookingsResource(Resource):
                 f_name=data['f_name'],
                 l_name=data['l_name'],
                 email=data['email'],
-                date_time=date_time_obj
+                date_time=date_time_obj,
                 service=data['service'],
-                description=data['description'],
+                description=data['description']
             )
             new_booking.save()
         
