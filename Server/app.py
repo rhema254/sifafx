@@ -17,7 +17,7 @@ api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
-date_time_obj = None
+
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
