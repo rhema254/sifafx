@@ -17,7 +17,7 @@ api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
-
+date_time_obj = None
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -64,13 +64,12 @@ class bookingsResource(Resource):
     @api.marshal_with(booking_model)
     def post(self):
         """ To create a new booking """
-
+        global date_time_obj    
         data = request.get_json()
         if isinstance(data['date_time'], str):
             date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
 
-                               
-            
+             
         new_booking = Booking(
                 f_name=data['f_name'],
                 l_name=data['l_name'],
