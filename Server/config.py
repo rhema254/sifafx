@@ -10,7 +10,7 @@ class DevConfig(Config):
     DB_USERNAME = config('DB_USERNAME')
     DB_PASSWORD = config('DB_PASSWORD')
     DB_NAME = config('DB_NAME')
-    DB_CONNECTION_STRING = config('DB_CONNECTION_STRING')
+    SQLALCHEMY_DATABASE_URI = config('DB_CONNECTION_STRING')
 
 class TestConfig(Config):
     pass
