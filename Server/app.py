@@ -26,7 +26,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.co
 @app.route('/', methods=['POST', 'GET'])
 def index():
 
-    return render_template('index.html')
+    return 'Welcome to Sifa FX '
 
 
 #serializer_model:
@@ -217,5 +217,7 @@ def credentials_to_dict(credentials):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    with app.app_context():
+        db.create_all()
+        app.run(debug=True)
+        
