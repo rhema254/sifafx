@@ -15,6 +15,7 @@ api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
+SQLALCHEMY_DATABASE_URI = app.config['DB_CONNECTION_STRING']
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
