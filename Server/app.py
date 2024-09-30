@@ -43,7 +43,7 @@ booking_model = api.model(
             "l_name": fields.String(required=True),
             "email": fields.String(required=True), 
             "date": fields.Date(required=True),
-            "time": fields.Time(required=True),
+            "time": fields.String(required=True, description="Format: HH:MM"),
             "service": fields.String(required=True),
             "description": fields.String(max_length=200, required=True),
             "created_at": fields.DateTime(required=True)
@@ -71,12 +71,14 @@ class bookingsResource(Resource):
         data = request.get_json()
         time = data['time']
         date = data['date']
-        date_time = datetime.strptime(f"{date} {time}", '%y%m%d %H%M%S')
+        date_time = datetime.strptime(f"{date} {time}", '%y%-m%-d %H:%M')
         new_booking = Booking(
             f_name=data['f_name'],
             l_name=data['l_name'],
             email=data['email'],
-            date_time=date_time,
+            date=date,
+            time=date_time.time(),  # Store only the time part
+            timezone = data['timezone'],
             service=data['service'],
             description=data['description']
         )
