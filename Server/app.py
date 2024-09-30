@@ -14,6 +14,7 @@ app = Flask(__name__)
 api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
+db.init_app(app)
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -36,8 +37,7 @@ booking_model = api.model(
         "id": fields.Integer(required=True),
         "f_name": fields.String(required=True),
         "l_name": fields.String(required=True),
-        "email": fields.String(required=True),
-        "phone": fields.String(required=True),  
+        "email": fields.String(required=True), 
         "date_time": fields.String(required=True),
         "service": fields.String(required=True),
         "description": fields.String(max_length=200, required=True),
@@ -68,7 +68,6 @@ class bookingsResource(Resource):
             f_name=data['f_name'],
             l_name=data['l_name'],
             email=data['email'],
-            phone=data['phone'],
             date_time=data['date_time'],
             service=data['service'],
             description=data['description'],
@@ -76,7 +75,8 @@ class bookingsResource(Resource):
         )
         new_booking.save()
         return new_booking, 201
-    
+
+@api.route('/submit/<int:id>')    
 class bookingResource(Resource):
 
     @api.marshal_with(booking_model)
