@@ -71,7 +71,7 @@ class bookingsResource(Resource):
         data = request.get_json()
         time = data['time']
         date = data['date']
-        date_time = datetime.strptime(f"{date} {time}", '%y%-m%-d %H:%M')
+        date_time = datetime (f"{date} {time}", '%Y-%m-%d %H:%M')
         new_booking = Booking(
             f_name=data['f_name'],
             l_name=data['l_name'],
