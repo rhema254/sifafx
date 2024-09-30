@@ -44,7 +44,6 @@ booking_model = api.model(
         "date_time": fields.String(required=True),
         "service": fields.String(required=True),
         "description": fields.String(max_length=200, required=True),
-        "meet_link": fields.String(required=False),
         "created_at": fields.DateTime(required=True)
 
     }
@@ -74,7 +73,7 @@ class bookingsResource(Resource):
             date_time=data['date_time'],
             service=data['service'],
             description=data['description'],
-            meet_link=data['meet_link']
+            
         )
         new_booking.save()
         return new_booking, 201
