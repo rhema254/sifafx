@@ -41,7 +41,7 @@ booking_model = api.model(
         "f_name": fields.String(required=True),
         "l_name": fields.String(required=True),
         "email": fields.String(required=True), 
-        "date_time": fields.String(required=True),
+        "date_time": fields.DateTime(required=True),
         "service": fields.String(required=True),
         "description": fields.String(max_length=200, required=True),
         "created_at": fields.DateTime(required=True)

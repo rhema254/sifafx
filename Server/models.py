@@ -1,4 +1,5 @@
 from Server.exts import db
+import datetime
 
 
 """" This is my database classes. They reprsent db tables """
@@ -19,7 +20,7 @@ class Booking(db.Model):
     f_name = db.Column(db.String, nullable=False)
     l_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
-    date_time = db.Column(db.String, nullable=False)
+    date_time = db.Column(db.DateTime, nullable=False)
     # timezone = db.Column(db.String, nullable=False)
     service = db.Column(db.String, nullable=False)
     description = db.Column(db.String(200), nullable=False)
