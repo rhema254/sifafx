@@ -66,25 +66,19 @@ class bookingsResource(Resource):
         """ To create a new booking """
         
         data = request.get_json()
-        
-        if isinstance(data['date_time'], str):
-           
-            try:
-                date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
-                new_booking = Booking(
-                        f_name=data['f_name'],
-                        l_name=data['l_name'],
-                        email=data['email'],
-                        date_time=date_time_obj,
-                        service=data['service'],
-                        description=data['description']
-                    )
-                new_booking.save()
+        date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
+        new_booking = Booking(
+            f_name=data['f_name'],
+            l_name=data['l_name'],
+            email=data['email'],
+            date_time=date_time_obj,
+            service=data['service'],
+            description=data['description']
+            )
+        new_booking.save()
+        return new_booking, 201
+            
 
-                return new_booking, 201
-            except ValueError:
-                return jsonify({"status": "error", "message": "Invalid datetime format"})
-                
 
 @api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
 class bookingResource(Resource):
