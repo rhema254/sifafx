@@ -9,6 +9,7 @@ from flask_restx import Api, Resource, fields
 from Server.models import *
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from Server.exts import db
 
 app = Flask(__name__)
 
@@ -207,12 +208,6 @@ def credentials_to_dict(credentials):
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes
     }
-
-
-
-
-
-
 
 
 
