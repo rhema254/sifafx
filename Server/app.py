@@ -42,7 +42,7 @@ booking_model = api.model(
         "f_name": fields.String(required=True),
         "l_name": fields.String(required=True),
         "email": fields.String(required=True), 
-        "date_time": fields.DateTime(required=True),
+        "date_time": fields.String(required=True),
         "service": fields.String(required=True),
         "description": fields.String(max_length=200, required=True),
         "created_at": fields.DateTime(required=True)
@@ -68,17 +68,17 @@ class bookingsResource(Resource):
         """ To create a new booking """
         
         data = request.get_json()
-        date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
-        print(date_time_obj)
+        time = data['date_time']
         new_booking = Booking(
             f_name=data['f_name'],
             l_name=data['l_name'],
             email=data['email'],
-            date_time=date_time_obj,
+            date_time=data['date_time'],
             service=data['service'],
             description=data['description']
-            )
+        )
         new_booking.save()
+
         return new_booking, 201
             
 
