@@ -1,4 +1,4 @@
-from exts import db
+from Server.exts import db
 import datetime
 
 
