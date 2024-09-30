@@ -15,8 +15,6 @@ app = Flask(__name__)
 api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
-SQLALCHEMY_DATABASE_URI = config('SQLALCHEMY_DATABASE_URI')
-print(SQLALCHEMY_DATABASE_URI)
 db.init_app(app)
 
 import os
