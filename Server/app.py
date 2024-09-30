@@ -8,13 +8,15 @@ from decouple import config
 from flask_restx import Api, Resource, fields
 from Server.models import *
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
-SQLALCHEMY_DATABASE_URI = app.config['DB_CONNECTION_STRING']
+SQLALCHEMY_DATABASE_URI = config('DB_CONNECTION_STRING')
+print(SQLALCHEMY_DATABASE_URI)
 db.init_app(app)
 
 import os
