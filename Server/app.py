@@ -66,16 +66,26 @@ class bookingsResource(Resource):
         """ To create a new booking """
 
         data = request.get_json()
-        new_booking = Booking(
-            f_name=data['f_name'],
-            l_name=data['l_name'],
-            email=data['email'],
-            date_time=data['date_time'],
-            service=data['service'],
-            description=data['description'],
+        try:
+
+            if isinstance(data['date_time'], str):
+                date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
+            else:
+                date_time_obj = data['date_time']
             
-        )
-        new_booking.save()
+            new_booking = Booking(
+                f_name=data['f_name'],
+                l_name=data['l_name'],
+                email=data['email'],
+                date_time=date_time_obj
+                service=data['service'],
+                description=data['description'],
+            )
+            new_booking.save()
+        
+        except ValueError as e:
+          return {"message": "Invalid date format. Please use the format YYYY-MM-DDTHH:MM."}, 400
+        
         return new_booking, 201
 
 @api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
