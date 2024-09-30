@@ -11,6 +11,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from Server.exts import db
 
+
 app = Flask(__name__)
 
 api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
@@ -63,10 +64,12 @@ class bookingsResource(Resource):
     @api.expect(booking_model)
     @api.marshal_with(booking_model)
     def post(self):
+
         """ To create a new booking """
         
         data = request.get_json()
         date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
+        print(date_time_obj)
         new_booking = Booking(
             f_name=data['f_name'],
             l_name=data['l_name'],
