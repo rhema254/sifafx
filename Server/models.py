@@ -1,4 +1,4 @@
-from exts import db
+from Server.exts import db
 
 
 """" This is my database classes. They reprsent db tables """
