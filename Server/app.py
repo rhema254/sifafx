@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -68,18 +68,22 @@ class bookingsResource(Resource):
         data = request.get_json()
         
         if isinstance(data['date_time'], str):
-            date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
-
-            new_booking = Booking(
-                    f_name=data['f_name'],
-                    l_name=data['l_name'],
-                    email=data['email'],
-                    date_time=date_time_obj,
-                    service=data['service'],
-                    description=data['description']
-                )
-            new_booking.save()
-            
+           
+            try:
+                date_time_obj = datetime.strptime(data['date_time'], '%Y-%m-%dT%H:%M')
+                new_booking = Booking(
+                        f_name=data['f_name'],
+                        l_name=data['l_name'],
+                        email=data['email'],
+                        date_time=date_time_obj,
+                        service=data['service'],
+                        description=data['description']
+                    )
+                new_booking.save()
+            except ValueError:
+                return jsonify({"status": "error", "message": "Invalid datetime format"})
+                
+                
         return new_booking, 201
 
 @api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
