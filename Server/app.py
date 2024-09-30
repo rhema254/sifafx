@@ -80,11 +80,11 @@ class bookingsResource(Resource):
                         description=data['description']
                     )
                 new_booking.save()
+
+                return new_booking, 201
             except ValueError:
                 return jsonify({"status": "error", "message": "Invalid datetime format"})
                 
-                
-        return new_booking, 201
 
 @api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
 class bookingResource(Resource):
