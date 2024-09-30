@@ -18,6 +18,7 @@ app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
 
+
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
@@ -214,6 +215,8 @@ def credentials_to_dict(credentials):
 
 if __name__ == '__main__':
     with app.app_context():
+        print('Creating database if they are absent')
         db.create_all()
+        print('Database created or already exists')
         app.run(debug=True)
         

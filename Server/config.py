@@ -1,6 +1,7 @@
 from decouple import config
 
 class Config():
+    SQLALCHEMY_ECHO = True
     SECRET_KEY = config('SECRET_KEY')
     # CLIENT_SECRETS_FILE = config('CLIENT_SECRETS_FILE')
     # SCOPES = 'https://www.googleapis.com/auth/calendar.events'
