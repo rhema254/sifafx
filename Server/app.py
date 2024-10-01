@@ -71,19 +71,19 @@ class bookingsResource(Resource):
         data = request.get_json()
         time = data['time']
         date = data['date']
-        date_time = datetime.strptime(f"{date} {time}", '%Y-%m-%d %H:%M')
+        print(time, date)
         new_booking = Booking(
             f_name=data['f_name'],
             l_name=data['l_name'],
             email=data['email'],
             date=date,
-            time=date_time.time(),  # Store only the time part
+            time=time,
             timezone = data['timezone'],
             service=data['service'],
             description=data['description']
         )
         new_booking.save()
-
+        print([new_booking])
         return new_booking, 201
             
 
