@@ -88,7 +88,7 @@ class bookingsResource(Resource):
             
 
 
-@api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
+@api.route('/submit/<int:id>', methods=['GET', 'UP  ', 'POST'])    
 class bookingResource(Resource):
 
     @api.marshal_with(booking_model)

@@ -30,7 +30,7 @@ class Booking(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     def __repr__(self):     
-        return f" A Booking for {self.f_name} {self.l_name} on {self.date_time} for {self.service} "; 
+        return f" A Booking for {self.f_name} {self.l_name} in timezone {self.timezone} on {self.date} at {self.time} for {self.service} "; 
     
     #Convenience Methods. 
 
@@ -47,4 +47,3 @@ class Booking(db.Model):
             setattr(self, key, value)
         self.save() 
 
-    
