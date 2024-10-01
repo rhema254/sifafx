@@ -83,12 +83,13 @@ class bookingsResource(Resource):
             description=data['description']
         )
         new_booking.save()
+        message = 'Booking created successfully'
         print([new_booking])
-        return new_booking, 201
+        return new_booking, 201, message
             
 
 
-@api.route('/submit/<int:id>', methods=['GET', 'UP  ', 'POST'])    
+@api.route('/submit/<int:id>', methods=['GET', 'UPDATE', 'POST'])    
 class bookingResource(Resource):
 
     @api.marshal_with(booking_model)
