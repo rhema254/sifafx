@@ -12,6 +12,11 @@ class DevConfig(Config):
     DB_PASSWORD = config('DB_PASSWORD')
     DB_NAME = config('DB_NAME')
     SQLALCHEMY_DATABASE_URI = config('DB_CONNECTION_STRING')
+    MAIL_SERVER = config('MAIL_SERVER')
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = config('MAIL_USERNAME')
+    MAIL_PASSWORD= config('MAIL_PASSWORD')
 
 class TestConfig(Config):
     pass

@@ -10,7 +10,7 @@ from Server.models import *
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from Server.exts import db
-
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ api = Api(app, version='1.0', title='SifaFX APIs', doc='/docs')
 app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
-
+mail = Mail(app)
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -69,11 +69,18 @@ class bookingsResource(Resource):
         """ To create a new booking """
         
         data = request.get_json()
+        f_name=data['f_name']
+        l_name=data['l_name']
+        email=data['email']
+        timezone = data['timezone'],
+        service=data['service'],
+        description=data['description']
         time = data['time']
         date = data['date']
+        meet = 'This is just a test'
         print(time, date)
         new_booking = Booking(
-            f_name=data['f_name'],
+            f_name=f_name,
             l_name=data['l_name'],
             email=data['email'],
             date=date,
@@ -83,7 +90,9 @@ class bookingsResource(Resource):
             description=data['description']
         )
         new_booking.save()
-        message = 'Booking created successfully'
+        msg = Message(subject='SifaFX Appointment', sender=app.config['MAIL_USERNAME'], recipients=[email])
+        msg.body = f"Hello {f_name} {l_name},<br/>Thank you for choosing our consulting services/n./n In your Booking Form, you indicated you'd like to have a session with us on {date} at {time}{timezone}. Please note that the timezone is the timezone that your browser detected! If you were using a vpn, kindly send a follow-up email to confirm this./n/n You can add this meeting to your calendar. Google meet Link:{meet}"
+        mail.send(msg)
         print([new_booking])
         return new_booking, 201 
             
