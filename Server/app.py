@@ -85,7 +85,7 @@ class bookingsResource(Resource):
         new_booking.save()
         message = 'Booking created successfully'
         print([new_booking])
-        return new_booking, 201, message
+        return new_booking, 201 
             
 
 
