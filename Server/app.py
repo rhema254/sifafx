@@ -9,9 +9,9 @@ from flask_restx import Api, Resource, fields
 from Server.models import *
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from Server.exts import db
+from Server.exts import db  
 from flask_mail import Mail, Message
-from email import send_email
+from Server.email import send_email
 
 app = Flask(__name__)
 
