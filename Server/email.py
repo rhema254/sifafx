@@ -2,7 +2,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from decouple import config
-from config import DevConfig
+# from Server.config import DevConfig
 
 
 MAIL_SERVER = config('MAIL_SERVER')
@@ -20,7 +20,7 @@ def send_email(email, subject, body):
         message['From'] = MAIL_USERNAME
         message['To'] = email
         message['Subject'] = subject
-        
+
         
         # Attach the body with the message instance
         message.attach(MIMEText(body, 'plain'))
