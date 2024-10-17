@@ -29,6 +29,8 @@ def send_email(email, subject, body):
         server = smtplib.SMTP(host=MAIL_SERVER, port=MAIL_PORT)
         server.starttls()  # Secure the connection
         server.login(MAIL_USERNAME, MAIL_PASSWORD)  # Login using your email and password
+        
+        print(MAIL_USERNAME, MAIL_PASSWORD)
 
         # Send the email
         server.sendmail(MAIL_USERNAME, email, message.as_string())
