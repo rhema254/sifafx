@@ -13,10 +13,9 @@ class DevConfig(Config):
     DB_NAME = config('DB_NAME')
     SQLALCHEMY_DATABASE_URI = config('DB_CONNECTION_STRING')
     MAIL_SERVER = config('MAIL_SERVER')
-    MAIL_PORT = 465
-    
-    MAIL_USERNAME = config('MAIL_USERNAME')
-    MAIL_PASSWORD= config('MAIL_PASSWORD')
+    MAIL_PORT = 587
+    Sender_email = config('Sender_email')
+    Server_pass= config('Server_pass')
 
 class TestConfig(Config):
     pass

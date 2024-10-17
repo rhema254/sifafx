@@ -11,7 +11,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from Server.exts import db  
 from flask_mail import Mail, Message
-from Server.email import send_email
+from Server.send_email import send_email
 
 app = Flask(__name__)
 
@@ -95,7 +95,6 @@ class bookingsResource(Resource):
         body = f"Hello {f_name} {l_name},<br/>Thank you for choosing our consulting services/n./n In your Booking Form, you indicated you'd like to have a session with us on {date} at {time}{timezone}. Please note that the timezone is the timezone that your browser detected! If you were using a vpn, kindly send a follow-up email to confirm this./n/n You can add this meeting to your calendar. Google meet Link:{meet}"
         send_email(email, subject, body)
         
-        print([new_booking])
         return new_booking, 201 
             
 
