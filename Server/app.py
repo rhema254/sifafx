@@ -5,7 +5,7 @@ from flask_restx import Resource, fields
 from Server.models import *
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from Server.exts import db, api
+from Server.exts import db, api, migrate
 from flask_mail import Mail, Message
 from Server.send_email import send_email
 import google.oauth2.credentials
@@ -23,6 +23,7 @@ api.init_app(app, version='1.0', title='SifaFX APIs', doc='/docs', contact='karh
 app.config.from_object(DevConfig)
 CORS(app)
 db.init_app(app)
+migrate.init_app(app, db)
 mail = Mail(app)
 
 app.register_blueprint(admin_blueprint, url_prefix='/admin')

@@ -14,7 +14,7 @@ class services(db.Enum):
     PerformanceAnalytics = "Performance Analytics" 
 
 
-class status(db.Enum):
+class Status(db.Enum):
     Scheduled = "Scheduled" 
     CallOngoing = "Call-Ongoing"
     Done = "Done"
@@ -25,16 +25,16 @@ class Booking(db.Model):
     __tablename__ = 'bookings'
 
     id = db.Column(db.Integer, primary_key=True)
-    f_name = db.Column(db.String, nullable=False)
-    l_name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False)
+    f_name = db.Column(db.String(30), nullable=False)
+    l_name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(80), nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
-    timezone = db.Column(db.String, nullable=False)
-    service = db.Column(db.String, nullable=False)
+    timezone = db.Column(db.String(30), nullable=False)
+    service = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(200), nullable=False)
-    meet_link = db.Column(db.String, nullable=True, default = 'none')
-    status = db.Column(db.String, nullable=False, default = 'Scheduled')
+    meet_link = db.Column(db.String(60), nullable=True, default = 'none')
+    status = db.Column(db.String(10), nullable=False, default = Status.Scheduled)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     def __repr__(self):     
