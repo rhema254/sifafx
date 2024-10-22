@@ -6,12 +6,18 @@ import datetime
 """" This is my database classes. They reprsent db tables """
 
 class services(db.Enum):
-    CustomStrategyDevelopment = "Custom Strategy Development    "
+    CustomStrategyDevelopment = "Custom Strategy Development"
     AlgorithmicTrading = "Algorithmic Trading"
     MultiPlatformIntegration = "Multi-Platform Integration"
     RiskManagementSolutions = "Risk Management Solutions"
     StrategyOptimization = "Strategy Optimization"
     PerformanceAnalytics = "Performance Analytics" 
+
+
+class status(db.enum):
+    Scheduled = "Scheduled" 
+    Call-Ongoing = "Call-Ongoing"
+    Done = "Done"
 
 
 class Booking(db.Model):
@@ -28,6 +34,7 @@ class Booking(db.Model):
     service = db.Column(db.String, nullable=False)
     description = db.Column(db.String(200), nullable=False)
     meet_link = db.Column(db.String, nullable=True, default = 'none')
+    status = db.Column(db.String, nullable=False, default = 'Scheduled')
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     def __repr__(self):     
