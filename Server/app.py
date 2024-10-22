@@ -13,7 +13,7 @@ import google_auth_oauthlib.flow
 import googleapiclient.discovery
 from datetime import datetime, timedelta
 import os
-from admin import admin_blueprint
+from Server.admin import admin_blueprint
 
 app = Flask(__name__)
 
