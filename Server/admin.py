@@ -1,8 +1,8 @@
 from flask import Blueprint
 from Server.config import DevConfig
 from flask_restx import Api, Resource, fields
-from app import booking_model
-from models import *
+from Server.app import booking_model
+from Server.models import *
 
 admin_blueprint = Blueprint('admin', __name__)
 
