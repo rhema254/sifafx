@@ -15,6 +15,7 @@ class services(db.Enum):
 
 
 class Booking(db.Model):
+    """ The data attributes for each booking record """
     __tablename__ = 'bookings'
 
     id = db.Column(db.Integer, primary_key=True)
