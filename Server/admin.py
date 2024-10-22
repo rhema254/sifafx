@@ -1,13 +1,11 @@
 from flask import Blueprint
 from Server.config import DevConfig
 from flask_restx import Api, Resource, fields
-from app import booking_model
+from Server.serializers import booking_model
 from Server.models import *
+from Server.exts import api
 
-admin_blueprint = Blueprint('admin', __name__)
-
-api = Api(admin_blueprint)
-
+admin_blueprint = Blueprint('admin', __name__, url_prefix='/api')
 
 
 @api.route('/bookings', methods=['GET'])
