@@ -14,7 +14,7 @@ class services(db.Enum):
     PerformanceAnalytics = "Performance Analytics" 
 
 
-class status(db.enum):
+class status(db.Enum):
     Scheduled = "Scheduled" 
     CallOngoing = "Call-Ongoing"
     Done = "Done"
