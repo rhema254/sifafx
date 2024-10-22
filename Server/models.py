@@ -16,7 +16,7 @@ class services(db.Enum):
 
 class status(db.enum):
     Scheduled = "Scheduled" 
-    Call-Ongoing = "Call-Ongoing"
+    CallOngoing = "Call-Ongoing"
     Done = "Done"
 
 
