@@ -1,17 +1,20 @@
 from Server.exts import db
 import datetime
+from sqlalchemy import ARRAY
 
 
 
 """" This is my database classes. They reprsent db tables """
 
 class services(db.Enum):
-    CustomStrategyDevelopment = "Custom Strategy Development"
-    AlgorithmicTrading = "Algorithmic Trading"
-    MultiPlatformIntegration = "Multi-Platform Integration"
-    RiskManagementSolutions = "Risk Management Solutions"
-    StrategyOptimization = "Strategy Optimization"
-    PerformanceAnalytics = "Performance Analytics" 
+    StrategyAutomation = "Strategy Automation"
+    TestingAndOptimization = "Testing And Optimization"
+    RiskManagementIntegration = "Risk Management Integration"
+    TechnicalSupport = "Technical Support"      
+    MultiPlatformDevelopment = "Multi-Platform Development"
+    APIIntegrationServices = "API Integration Services"
+    MachineLearningEnhancement = "Machine Learning Enhancement"
+    MarketDataAnalysisTools = "Market Data Analysis Tools"
 
 
 class Status(db.Enum):
@@ -20,31 +23,33 @@ class Status(db.Enum):
     Done = "Done"
 
 
+
 class Booking(db.Model):
     """ The data attributes for each booking record """
     __tablename__ = 'bookings'
 
     id = db.Column(db.Integer, primary_key=True)
-    f_name = db.Column(db.String(30), nullable=False)
-    l_name = db.Column(db.String(30), nullable=False)
+    fullname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(80), nullable=False)
+    phone = db.Column(db.String(10), nullable=True)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
     timezone = db.Column(db.String(30), nullable=False)
-    service = db.Column(db.String(30), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(400), nullable=False)
     meet_link = db.Column(db.String(60), nullable=True, default = 'none')
     status = db.Column(db.String(10), nullable=False, default = Status.Scheduled)
     created_at = db.Column(db.DateTime, default=db.func.now())
-
+    services = db.Column(ARRAY(db.String), nullable=False)
+    
     def __repr__(self):     
-        return f" A Booking for {self.f_name} {self.l_name} in timezone {self.timezone} on {self.date} at {self.time} for {self.service} "; 
+        return f" A Booking for {self.fullname} in timezone {self.timezone} on {self.date} at {self.time} for {self.services} "; 
     
     #Convenience Methods. 
 
     def save(self):
         db.session.add(self)
         db.session.commit()
+                # If value is a new list of services, replace the current list
 
     def delete(self):
         db.session.delete(self)
@@ -52,6 +57,14 @@ class Booking(db.Model):
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
-            setattr(self, key, value)
+            if key == 'services':
+                if self.services and isinstance(self.services, list):
+                    if value in self.services:
+                        self.services.remove(value)
+                else:
+                    self.services = value
+            else:
+                setattr(self, key, value)
+        
         self.save() 
 
