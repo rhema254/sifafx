@@ -13,7 +13,7 @@ booking_model = api.model(
             "time": fields.String(required=True, description="Session Time in Format: HH:MM"),
             "timezone":fields.String(required=True, description="Timezone"),
             "status":fields.String(required=True, default='Scheduled', description="Booking Status"),
-            "services": fields.List(fields.Raw, required=True, description="Service Required"),
+            "services": fields.String(fields.String, required=True, description="Service Required"),
             "description": fields.String(max_length=200, required=True, description="Description of the problem"),
             "created_at": fields.DateTime(required=True, description="Booking Creation Date")
 

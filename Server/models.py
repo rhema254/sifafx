@@ -39,7 +39,7 @@ class Booking(db.Model):
     meet_link = db.Column(db.String(60), nullable=True, default = 'none')
     status = db.Column(db.String(10), nullable=False, default = Status.Scheduled)
     created_at = db.Column(db.DateTime, default=db.func.now())
-    services = db.Column(ARRAY(db.String), nullable=False)
+    services = db.Column(db.String(300), nullable=False)
     
     def __repr__(self):     
         return f" A Booking for {self.fullname} in timezone {self.timezone} on {self.date} at {self.time} for {self.services} "; 
