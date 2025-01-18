@@ -1,55 +1,122 @@
 import smtplib
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 from decouple import config
-# from config import DevConfig
+from jinja2 import Template
+import jwt
 
-def send_email(email, subject, body):
+smtp_server = config("MAIL_SERVER")
+port = config("MAIL_PORT")
+sender_email = config("Sender_email")
+password = config("Server_pass")
+frontend = config("frontend")
+booking_path = 'Server/booking_template.html'
+reschedule_path = 'Server/reschedule_template.html'
+cancel_path ='Server/cancel_template.html'
+
+
+# def generate_token(id):
+#     secret_key = config("SECRET_KEY")
+#     return jwt.encode({"id": id}, secret_key, algorithm="HS256")
+
+ 
+def send_mail(fullname, email, date, time_12, id):
+    receiver_email = email
+    
+    token = id
+    Reschedule = f"{frontend}public/Reschedule.html?id={token}"
+    print(Reschedule)
+    Cancel = frontend + "public/Cancel.html?id=" + str(token)
+
+    with open(booking_path, "r") as file:
+        email_template = Template(file.read())
+
+    
+        
+    html_content = email_template.render(fullname=fullname, date=date, time=time_12, id=id, Reschedule=Reschedule, Cancel=Cancel)
+    
+    
+    subject = "Your Appointment is Scheduled"
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message.attach(MIMEText(html_content, "html"))
+  
+
     try:
-        # Load configuration
-        sender = config('Sender_email')
-        password = config('Server_pass')
-        host = config('MAIL_SERVER')
-        port = config('MAIL_PORT', default=587)  # Add this line
-
-        print(f"Connecting to {host}:{port}")
-        print(f"Sending from: {sender}")
-        print(f"Sending to: {email}")
-
-        # Set up the MIME
-        message = MIMEMultipart()
-        message['From'] = sender
-        message['To'] = email
-        message['Subject'] = subject
-
-        # Attach the body with t    he message instance
-        message.attach(MIMEText(body, 'plain'))
-
-        # Create the server connection
-        with smtplib.SMTP(host=host, port=port) as server:
-            print("Connection established. Starting TLS...")
-            server.starttls()  # Secure the connection
-            print("TLS started. Attempting login...")
-            server.login(sender, password)  # Login using your email and password
-            print("Login successful. Sending email...")
-            
-            # Send the email
-            server.send_message(message)
-
+        with smtplib.SMTP_SSL(smtp_server, port) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
         print("Email sent successfully!")
-
     except Exception as e:
-        print(f"Failed to send email. Error: {e}")
-        if isinstance(e, smtplib.SMTPAuthenticationError):
-            print("This appears to be an authentication error. Please check your email and password.")
-        elif isinstance(e, smtplib.SMTPConnectError):
-            print("This appears to be a connection error. Please check your SMTP server and port settings.")
+        print(f"Error sending email: {e}")
 
-# Test block to run the function when script is executed directly
-# if __name__ == "__main__":
-#     # Test with sample data
-#     test_email = "rhematesh@gmail.com"
-#     test_subject = "Test Email"
-#     test_body = "This is a test email."
+    
 
-#     send_email(test_email, test_subject, test_body)
+
+ 
+def reschedule_mail(fullname, email, date, time_12, id):
+    
+    receiver_email = email
+    token = id
+    Reschedule = f"{frontend}public/Reschedule.html?id={token}"
+    Cancel = f"{frontend}public/Cancel.html?id={token}"
+
+    with open(reschedule_path, "r") as file:
+        email_template = Template(file.read())
+
+    
+        
+    html_content = email_template.render(fullname=fullname, date=date, time=time_12, id=id, Reschedule=Reschedule, Cancel=Cancel)
+    
+    
+    subject = "Your Appointment is recheduled"
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message.attach(MIMEText(html_content, "html"))
+  
+
+    try:
+        with smtplib.SMTP_SSL(smtp_server, port) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+    
+
+ 
+def cancel_mail(email, date, time_12):
+    
+    receiver_email = email
+
+    with open(cancel_path, "r") as file:
+        email_template = Template(file.read())
+
+    
+        
+    html_content = email_template.render(frontend=frontend, date=date, time=time_12)
+    
+    
+    subject = "Your Appointment is cancelled"
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message.attach(MIMEText(html_content, "html"))
+  
+
+    try:
+        with smtplib.SMTP_SSL(smtp_server, port) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+    

@@ -13,14 +13,15 @@ class DevConfig(Config):
     DB_NAME = config('DB_NAME')
     SQLALCHEMY_DATABASE_URI = config('DB_CONNECTION_STRING')
     MAIL_SERVER = config('MAIL_SERVER')
-    MAIL_PORT = 587
+    MAIL_PORT = config('MAIL_PORT')
     Sender_email = config('Sender_email')
     Server_pass= config('Server_pass')
+    frontend = config('frontend', 'http://localhost:5000/')
 
 class TestConfig(Config):
     pass
 
 class ProdConfig(Config):
-    pass 
+    pass
 
  

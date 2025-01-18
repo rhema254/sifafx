@@ -19,8 +19,8 @@ class services(db.Enum):
 
 class Status(db.Enum):
     Scheduled = "Scheduled" 
-    CallOngoing = "Call-Ongoing"
     Done = "Done"
+    Cancelled = "Cancelled"
 
 
 
@@ -49,7 +49,7 @@ class Booking(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
-                # If value is a new list of services, replace the current list
+               
 
     def delete(self):
         db.session.delete(self)
