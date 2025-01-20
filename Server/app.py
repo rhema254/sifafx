@@ -91,7 +91,7 @@ class bookingsResource(Resource):
         new_booking.save()
         new_id = new_booking.id
         print(new_id)
-        time_12 = convert_to_12_hour(time)
+        time_12 = convert_to_12_hour(new_booking.time)
         formatted_date = format_date(date)
         send_mail(fullname,email,formatted_date,time_12,new_id)
         print(new_booking)
