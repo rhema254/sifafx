@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 from decouple import config
 from jinja2 import Template
-import jwt
+# import jwt
 
 smtp_server = config("MAIL_SERVER")
 port = config("MAIL_PORT")
@@ -25,9 +25,9 @@ def send_mail(fullname, email, date, time_12, id):
     receiver_email = email
     
     token = id
-    Reschedule = f"{frontend}public/Reschedule.html?id={token}"
+    Reschedule = f"{frontend}/Reschedule.html?id={token}"
     print(Reschedule)
-    Cancel = frontend + "public/Cancel.html?id=" + str(token)
+    Cancel = frontend + "/Cancel.html?id=" + str(token)
 
     with open(booking_path, "r") as file:
         email_template = Template(file.read())
@@ -61,8 +61,8 @@ def reschedule_mail(fullname, email, date, time_12, id):
     
     receiver_email = email
     token = id
-    Reschedule = f"{frontend}public/Reschedule.html?id={token}"
-    Cancel = f"{frontend}public/Cancel.html?id={token}"
+    Reschedule = f"{frontend}/Reschedule.html?id={token}"
+    Cancel = f"{frontend}/Cancel.html?id={token}"
 
     with open(reschedule_path, "r") as file:
         email_template = Template(file.read())
