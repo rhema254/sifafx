@@ -108,7 +108,7 @@ class bookingResource(Resource):
 
         updated_booking = Booking.query.get_or_404(id)
         
-        if updated_booking.status is not 'Cancelled':
+        if (updated_booking.status != 'Cancelled'):
             data = api.payload
             print(data)
             
